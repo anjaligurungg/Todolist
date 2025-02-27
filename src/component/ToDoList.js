@@ -4,7 +4,8 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const addTodo = () => {
+  const addTodo = (e) => {
+    e.preventDefault();
     if (inputValue.trim() !== "") {
       setTodos([...todos, { text: inputValue, completed: false }]);
       setInputValue("");
@@ -26,7 +27,7 @@ function App() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>To-Do List</h1>
-      <div style={styles.inputContainer}>
+      <form style={styles.inputContainer} onSubmit={(e) => addTodo(e)}>
         <input
           type="text"
           value={inputValue}
@@ -34,10 +35,10 @@ function App() {
           placeholder="Add a new task"
           style={styles.input}
         />
-        <button onClick={addTodo} style={styles.addButton}>
+        <button type="submit" style={styles.addButton}>
           Add
         </button>
-      </div>
+      </form>
 
       {todos.length > 0 ? (
         <table style={styles.table}>
